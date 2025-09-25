@@ -9,3 +9,57 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* Mermaid diagram responsive styles */
+.mermaid-container svg {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.mermaid-container {
+  overflow: hidden;
+}
+
+/* Mobile-specific mermaid styles */
+@media (max-width: 768px) {
+  .mermaid-container svg {
+    transform: scale(0.8);
+    transform-origin: top left;
+  }
+
+  #mermaid-diagram-modal svg {
+    transform: scale(1) !important;
+  }
+}
+
+/* Scrollbar styles */
+.overflow-auto::-webkit-scrollbar,
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.overflow-auto::-webkit-scrollbar-track,
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb,
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #6b8caf;
+  border-radius: 4px;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb:hover,
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #4f6b8a;
+}
+
+/* Mobile overflow fixes */
+@media (max-width: 1024px) {
+  .lg\\:col-span-2,
+  .lg\\:col-span-1 {
+    overflow-x: hidden;
+    word-wrap: break-word;
+  }
+}

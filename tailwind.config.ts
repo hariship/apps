@@ -10,29 +10,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Earthy tones for the Star Trek inspired theme
+        // Blue tones like blog
         terracotta: {
-          DEFAULT: "#8B4513",
-          light: "#A0522D",
-          dark: "#704214",
+          DEFAULT: "#6b8caf",
+          light: "#6b8caf",
+          dark: "#6b8caf",
         },
         sand: {
-          DEFAULT: "#D2B48C",
-          light: "#DEB887",
-          dark: "#C19A6B",
+          DEFAULT: "#DEB887",
+          light: "#F5DEB3",
+          dark: "#D2B48C",
         },
-        sage: {
-          DEFAULT: "#6B8E4F",
-          light: "#7FA05A",
-          dark: "#5A7A43",
+        forest: {
+          DEFAULT: "#556B2F",
+          light: "#6B8E23",
+          dark: "#483C32",
         },
         stone: {
-          DEFAULT: "#918B7C",
-          light: "#A8A295",
-          dark: "#7A7465",
+          DEFAULT: "#A0A0A0",
+          light: "#C0C0C0",
+          dark: "#808080",
         },
-        "dusty-purple": "#9B7BA6",
-        "dusty-blue": "#5B8FA8",
+        sage: {
+          DEFAULT: "#87A96B",
+          light: "#9CB86F",
+          dark: "#6B8E23",
+        },
+        earth: {
+          green: "#8FBC8F",
+          brown: "#8B7355",
+          gray: "#696969",
+        },
       },
       fontFamily: {
         'display': ['Antonio', 'sans-serif'],
@@ -46,11 +54,21 @@ const config: Config = {
       animation: {
         'scan': 'scan 3s linear infinite',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'fade-in-up': 'fadeInUp 0.6s ease-out',
+        'fade-in': 'fadeIn 0.4s ease-out',
       },
       keyframes: {
         scan: {
           '0%': { transform: 'translateY(-100%)' },
           '100%': { transform: 'translateY(100%)' },
+        },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         }
       }
     },

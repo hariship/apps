@@ -1,15 +1,33 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
+
+interface Technology {
+  id: number;
+  name: string;
+  slug: string;
+  category: string;
+  color: string;
+  icon?: string;
+  website_url?: string;
+}
 
 interface Project {
-  id: string;
+  id: number;
   name: string;
+  slug: string;
   description: string;
-  status: "operational" | "beta" | "development";
-  liveUrl?: string;
-  sourceUrl?: string;
-  technologies: string[];
+  long_description?: string;
+  live_url: string;
+  source_url: string;
+  image_url?: string;
+  status: "active" | "maintenance" | "archived";
+  featured: boolean;
+  sort_order: number;
+  technologies: Technology[];
+  created_at: string;
+  updated_at: string;
 }
 
 interface ProjectGridProps {
@@ -17,80 +35,85 @@ interface ProjectGridProps {
 }
 
 export default function ProjectGrid({ projects }: ProjectGridProps) {
+  const router = useRouter();
+
   return (
-    <div className="grid grid-cols-1 gap-8">
+    <div className="grid grid-cols-1 gap-4">
       {projects.map((project, index) => (
-        // @ts-ignore - React 19 compatibility issue with framer-motion
-        <motion.div
+        <div
           key={project.id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
-          className="relative group"
+          className="relative group animate-fade-in-up cursor-pointer"
+          style={{ animationDelay: `${index * 100}ms` }}
+          onClick={() => router.push(`/project/${project.slug}`)}
         >
-          <div className="bg-gray-900 dark:bg-gray-900 light:bg-white border-2 border-amber-600 dark:border-amber-600 light:border-sage p-8 flex flex-col transition-colors" style={{borderRadius: '0 20px 20px 0', minHeight: '400px'}}>
+          <div className="bg-white dark:bg-gray-900 border border-gray-300 dark:border-terracotta p-4 flex flex-col transition-colors" style={{borderRadius: '0 15px 15px 0', minHeight: '280px'}}>
             {/* Project Header */}
-            <div className="mb-6 pb-4 border-b-2 border-amber-600/30 dark:border-amber-600/30 light:border-sage/30">
-              <h3 className="text-2xl font-bold text-amber-200 dark:text-amber-200 light:text-terracotta uppercase tracking-wider" style={{fontFamily: 'Orbitron, sans-serif'}}>
+            <div className="mb-3 pb-2 border-b border-gray-300/50 dark:border-terracotta/30">
+              <h3 className="text-lg font-bold text-terracotta dark:text-terracotta uppercase tracking-wider" style={{fontFamily: 'Orbitron, sans-serif'}}>
                 {project.name}
               </h3>
-              <div className="h-1 w-full bg-gradient-to-r from-amber-600 dark:from-amber-600 light:from-sage via-yellow-500 dark:via-yellow-500 light:via-sage-light to-transparent mt-3" />
+              <div className="h-0.5 w-full bg-gradient-to-r from-gray-400 dark:from-terracotta via-gray-500 dark:via-terracotta-light to-transparent mt-2" />
             </div>
 
             {/* Project Description */}
-            <p className="text-gray-300 dark:text-gray-300 light:text-gray-700 mb-6 flex-grow leading-relaxed text-base" style={{fontFamily: 'Share Tech Mono, monospace'}}>
+            <p className="text-gray-700 dark:text-gray-300 mb-3 flex-grow leading-relaxed text-sm" style={{fontFamily: 'Share Tech Mono, monospace'}}>
               {project.description}
             </p>
 
             {/* Status */}
-            <div className="mb-6">
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-sage/20 dark:bg-sage/20 light:bg-sage/30 text-sage-light dark:text-sage-light light:text-sage-dark rounded-full text-sm font-bold uppercase tracking-wide">
+            <div className="mb-3">
+              <span className="inline-flex items-center gap-1 px-2 py-1 bg-gray-200 dark:bg-sage/20 text-gray-700 dark:text-sage-light rounded text-xs font-bold uppercase tracking-wide">
                 ● {project.status.toUpperCase()}
               </span>
             </div>
 
             {/* Technologies */}
-            <div className="mb-8">
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
+            <div className="mb-4">
+              <div className="flex flex-wrap gap-1">
+                {project.technologies.slice(0, 4).map((tech) => (
                   <span
-                    key={tech}
-                    className="text-sm px-3 py-2 bg-amber-600/20 dark:bg-amber-600/20 light:bg-sage/20 text-amber-300 dark:text-amber-300 light:text-sage-dark rounded border border-amber-600/50 dark:border-amber-600/50 light:border-sage/50 font-medium"
+                    key={tech.id}
+                    className="text-xs px-2 py-1 bg-gray-100 dark:bg-terracotta/20 text-gray-700 dark:text-terracotta rounded border border-gray-300 dark:border-terracotta/50 font-medium"
                     style={{fontFamily: 'Share Tech Mono, monospace'}}
                   >
-                    ▪ {tech}
+                    {tech.name}
                   </span>
                 ))}
+                {project.technologies.length > 4 && (
+                  <span className="text-xs px-2 py-1 text-gray-500">
+                    +{project.technologies.length - 4}
+                  </span>
+                )}
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-4 mt-auto">
-              {project.liveUrl && (
+            <div className="flex gap-2 mt-auto">
+              {project.live_url && (
                 <a
-                  href={project.liveUrl}
+                  href={project.live_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 text-center px-6 py-4 bg-amber-600 dark:bg-amber-600 light:bg-sage hover:bg-amber-500 dark:hover:bg-amber-500 light:hover:bg-sage-light text-black dark:text-black light:text-white font-bold uppercase tracking-wide transition-colors text-lg"
-                  style={{fontFamily: 'Antonio, sans-serif', borderRadius: '20px 4px 4px 20px'}}
+                  className="flex-1 text-center px-3 py-2 bg-gray-500 dark:bg-terracotta hover:bg-gray-600 dark:hover:bg-terracotta-light text-white dark:text-black text-xs font-bold uppercase tracking-wide transition-colors"
+                  style={{fontFamily: 'Antonio, sans-serif', borderRadius: '15px 3px 3px 15px'}}
                 >
-                  ACCESS LIVE
+                  LIVE
                 </a>
               )}
-              {project.sourceUrl && (
+              {project.source_url && (
                 <a
-                  href={project.sourceUrl}
+                  href={project.source_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 text-center px-6 py-4 bg-sage dark:bg-sage light:bg-terracotta hover:bg-sage-light dark:hover:bg-sage-light light:hover:bg-terracotta-light text-white font-bold uppercase tracking-wide transition-colors text-lg"
-                  style={{fontFamily: 'Antonio, sans-serif', borderRadius: '20px 4px 4px 20px'}}
+                  className="flex-1 text-center px-3 py-2 bg-terracotta dark:bg-gray-500 hover:bg-terracotta-light dark:hover:bg-gray-400 text-white text-xs font-bold uppercase tracking-wide transition-colors"
+                  style={{fontFamily: 'Antonio, sans-serif', borderRadius: '15px 3px 3px 15px'}}
                 >
-                  VIEW SOURCE
+                  SOURCE
                 </a>
               )}
             </div>
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

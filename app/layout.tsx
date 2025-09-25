@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Analytics } from "@vercel/analytics/react";
+import ClientSessionProvider from "@/components/session-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Haripriya - Open Source Projects",
-  description: "A collection of open source projects and tools",
-  keywords: ["open source", "projects", "developer", "portfolio"],
+  title: "Apps Dashboard - Portfolio Projects",
+  description: "Portfolio dashboard showcasing development projects with architecture diagrams and technology stacks",
+  keywords: ["portfolio", "projects", "developer", "dashboard", "next.js", "react"],
 };
 
 export default function RootLayout({
@@ -20,15 +20,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} min-h-screen`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-        <Analytics />
+        <ClientSessionProvider session={null}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem={false}
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </ClientSessionProvider>
       </body>
     </html>
   );
