@@ -34,7 +34,7 @@ export default function Home() {
                 HARIPRIYA
               </h1>
               <p className="text-sm text-blue-300 mt-2" style={{fontFamily: 'Share Tech Mono, monospace'}}>
-                OPEN SOURCE PROJECTS ◆ STARDATE {new Date().toISOString().split('T')[0]}
+                OPEN SOURCE PROJECTS ◆ {new Date().toISOString().split('T')[0]}
               </p>
             </div>
             <button

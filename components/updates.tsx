@@ -53,7 +53,7 @@ export default function Updates() {
           >
             <div className="flex items-center mb-4">
               <span className="text-lg font-orbital text-terracotta">
-                STARDATE {update.date}
+                {update.date}
               </span>
               <div className="ml-4 flex-1 h-1 bg-gradient-to-r from-terracotta via-sand to-transparent" />
             </div>
