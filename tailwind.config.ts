@@ -22,9 +22,9 @@ const config: Config = {
           dark: "#C19A6B",
         },
         sage: {
-          DEFAULT: "#87A96B",
-          light: "#A4C582",
-          dark: "#6B8E51",
+          DEFAULT: "#6B8E4F",
+          light: "#7FA05A",
+          dark: "#5A7A43",
         },
         stone: {
           DEFAULT: "#918B7C",
