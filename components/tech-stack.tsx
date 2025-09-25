@@ -45,6 +45,7 @@ export default function TechStack() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: categoryIndex * 0.1 }}
             className="lcars-card p-6"
+            // @ts-ignore - React 19 compatibility
           >
             <h3
               className={`text-lg font-orbital mb-4 ${
@@ -75,6 +76,7 @@ export default function TechStack() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: categoryIndex * 0.1 + techIndex * 0.05 }}
                   className="flex items-center text-sm font-tech"
+                  // @ts-ignore - React 19 compatibility
                 >
                   <span className={`mr-2 ${
                     category.color === "terracotta" && "text-terracotta"

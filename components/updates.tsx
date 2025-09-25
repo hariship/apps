@@ -49,6 +49,7 @@ export default function Updates() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
             className="lcars-card p-6"
+            // @ts-ignore - React 19 compatibility
           >
             <div className="flex items-center mb-4">
               <span className="text-lg font-orbital text-terracotta">
