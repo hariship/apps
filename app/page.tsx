@@ -39,6 +39,7 @@ interface GitHubCommit {
   date: string;
   url: string;
   sha: string;
+  projectName?: string;
 }
 
 export default function Home() {
@@ -70,19 +71,34 @@ export default function Home() {
   useEffect(() => {
     const fetchRecentCommits = async () => {
       try {
-        // Find the Apps Dashboard project and get its GitHub repo
-        const appsProject = projects.find(p => p.slug === 'apps-dashboard');
-        if (appsProject?.source_url) {
-          const match = appsProject.source_url.match(/github\.com\/([^\/]+\/[^\/]+)/);
-          if (match) {
-            const repo = match[1].replace('.git', '');
-            const response = await fetch(`/api/github-commits?repo=${repo}&limit=5`);
-            const result = await response.json();
-            if (result.success) {
-              setRecentCommits(result.data);
+        const allCommits: GitHubCommit[] = [];
+
+        // Get commits from all projects that have GitHub source_url
+        for (const project of projects) {
+          if (project.source_url && project.source_url.includes('github.com')) {
+            const match = project.source_url.match(/github\.com\/([^\/]+\/[^\/]+)/);
+            if (match) {
+              const repo = match[1].replace('.git', '');
+              const response = await fetch(`/api/github-commits?repo=${repo}&limit=3`);
+              const result = await response.json();
+              if (result.success) {
+                // Add project name to each commit for context
+                const commitsWithProject = result.data.map((commit: GitHubCommit) => ({
+                  ...commit,
+                  projectName: project.name
+                }));
+                allCommits.push(...commitsWithProject);
+              }
             }
           }
         }
+
+        // Sort all commits by date (newest first) and take the most recent 8
+        const sortedCommits = allCommits
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .slice(0, 8);
+
+        setRecentCommits(sortedCommits);
       } catch (error) {
         console.error('Error fetching recent commits:', error);
       }
@@ -191,6 +207,11 @@ export default function Home() {
                         {commit.title}
                       </div>
                       <div className="flex items-center gap-2 mt-1 text-xs text-gray-600 dark:text-gray-400">
+                        {commit.projectName && (
+                          <span className="px-1 py-0.5 bg-terracotta/20 text-terracotta rounded text-xs font-medium">
+                            {commit.projectName}
+                          </span>
+                        )}
                         <span className="font-mono text-gray-500 dark:text-terracotta">{commit.sha.substring(0, 7)}</span>
                         <span>{formatDate(commit.date)}</span>
                       </div>
@@ -213,21 +234,35 @@ export default function Home() {
               <div className="h-0.5 w-full bg-gradient-to-r from-gray-400 dark:from-terracotta to-transparent mb-4" />
 
               <div className="flex flex-col space-y-2">
-                {recentCommits.length > 0 && (
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gray-300 dark:bg-gray-700 rounded-full flex items-center justify-center">
-                      <span className="text-xs font-bold text-gray-600 dark:text-gray-300">
-                        {recentCommits[0]?.author?.charAt(0)?.toUpperCase() || 'U'}
-                      </span>
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-gray-900 dark:text-white">
-                        {recentCommits[0]?.author || 'Unknown'}
+                {recentCommits.length > 0 && (() => {
+                  // Count commits by author from recent commits
+                  const authorCounts = recentCommits.reduce((acc, commit) => {
+                    acc[commit.author] = (acc[commit.author] || 0) + 1;
+                    return acc;
+                  }, {} as Record<string, number>);
+
+                  // Get the author with most commits
+                  const leadAuthor = Object.entries(authorCounts)
+                    .sort(([,a], [,b]) => b - a)[0];
+
+                  return (
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gray-300 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                        <span className="text-xs font-bold text-gray-600 dark:text-gray-300">
+                          {leadAuthor?.[0]?.charAt(0)?.toUpperCase() || 'U'}
+                        </span>
                       </div>
-                      <div className="text-xs text-gray-600 dark:text-gray-400">Lead Developer</div>
+                      <div>
+                        <div className="text-sm font-medium text-gray-900 dark:text-white">
+                          {leadAuthor?.[0] || 'Unknown'}
+                        </div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400">
+                          Lead Developer ({leadAuthor?.[1] || 0} commits)
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
                 {recentCommits.length === 0 && (
                   <div className="text-center py-2 text-gray-400 text-xs">
                     Loading contributors...
