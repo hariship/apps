@@ -4,46 +4,46 @@ import { useEffect, useState } from "react";
 
 export default function SystemStatus() {
   const [uptime, setUptime] = useState("99.9%");
-  const [projects, setProjects] = useState(6);
-  const [live, setLive] = useState(4);
+  const [projects, setProjects] = useState(1);
+  const [live, setLive] = useState(1);
 
   return (
     <div className="space-y-6">
-      <div className="lcars-card p-6">
-        <h3 className="text-lg font-orbital text-sand dark:text-sand light:text-stone-dark mb-4">
+      <div className="bg-gray-800 border-2 border-amber-600 p-6" style={{borderRadius: '0 20px 20px 0'}}>
+        <h3 className="text-lg font-bold text-amber-200 mb-4 uppercase tracking-wider" style={{fontFamily: 'Orbitron, sans-serif'}}>
           SYSTEM STATUS
         </h3>
-        <div className="h-1 w-full bg-gradient-to-r from-terracotta via-sand to-transparent mb-4" />
+        <div className="h-1 w-full bg-gradient-to-r from-amber-600 via-yellow-500 to-transparent mb-4" />
 
-        <div className="space-y-3 font-tech text-sm">
+        <div className="space-y-3 text-sm" style={{fontFamily: 'Share Tech Mono, monospace'}}>
           <div className="flex justify-between">
             <span className="text-gray-400">PROJECTS ONLINE</span>
-            <span className="text-sage">{live}</span>
+            <span className="text-green-400 font-bold">{live}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">TOTAL PROJECTS</span>
-            <span className="text-sand">{projects}</span>
+            <span className="text-amber-400 font-bold">{projects}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">UPTIME</span>
-            <span className="text-terracotta">{uptime}</span>
+            <span className="text-orange-400 font-bold">{uptime}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">RESPONSE TIME</span>
-            <span className="text-dusty-blue">12ms</span>
+            <span className="text-blue-400 font-bold">12ms</span>
           </div>
         </div>
 
         <div className="mt-6 space-y-2">
-          <div className="text-xs font-tech text-gray-500">SYSTEM LOAD</div>
+          <div className="text-xs text-gray-500 uppercase" style={{fontFamily: 'Share Tech Mono, monospace'}}>SYSTEM LOAD</div>
           <div className="flex gap-1">
             {[...Array(8)].map((_, i) => (
               <div
                 key={i}
                 className={`h-4 w-full ${
                   i < 6
-                    ? "bg-sage dark:bg-sage light:bg-sage"
-                    : "bg-gray-700 dark:bg-gray-700 light:bg-gray-300"
+                    ? "bg-green-500"
+                    : "bg-gray-700"
                 }`}
               />
             ))}
@@ -51,24 +51,24 @@ export default function SystemStatus() {
         </div>
       </div>
 
-      <div className="lcars-card p-6">
-        <h3 className="text-lg font-orbital text-sand dark:text-sand light:text-stone-dark mb-4">
+      <div className="bg-gray-800 border-2 border-amber-600 p-6" style={{borderRadius: '0 20px 20px 0'}}>
+        <h3 className="text-lg font-bold text-amber-200 mb-4 uppercase tracking-wider" style={{fontFamily: 'Orbitron, sans-serif'}}>
           INTEGRATIONS
         </h3>
-        <div className="h-1 w-full bg-gradient-to-r from-terracotta via-sand to-transparent mb-4" />
+        <div className="h-1 w-full bg-gradient-to-r from-amber-600 via-yellow-500 to-transparent mb-4" />
 
-        <div className="space-y-2 font-tech text-sm">
+        <div className="space-y-2 text-sm" style={{fontFamily: 'Share Tech Mono, monospace'}}>
           <div className="flex items-center justify-between">
-            <span>▪ GitHub API</span>
-            <span className="text-sage text-xs">ACTIVE</span>
+            <span className="text-gray-300">▪ GitHub API</span>
+            <span className="text-green-400 text-xs font-bold">ACTIVE</span>
           </div>
           <div className="flex items-center justify-between">
-            <span>▪ Vercel Analytics</span>
-            <span className="text-sage text-xs">ACTIVE</span>
+            <span className="text-gray-300">▪ Vercel Analytics</span>
+            <span className="text-green-400 text-xs font-bold">ACTIVE</span>
           </div>
           <div className="flex items-center justify-between">
-            <span>▪ Cloudflare CDN</span>
-            <span className="text-sage text-xs">ACTIVE</span>
+            <span className="text-gray-300">▪ Cloudflare CDN</span>
+            <span className="text-green-400 text-xs font-bold">ACTIVE</span>
           </div>
         </div>
       </div>

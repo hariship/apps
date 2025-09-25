@@ -39,13 +39,13 @@ export default function TechStack() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {techCategories.map((category, categoryIndex) => (
+          // @ts-ignore - React 19 compatibility
           <motion.div
             key={category.name}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: categoryIndex * 0.1 }}
             className="lcars-card p-6"
-            // @ts-ignore - React 19 compatibility
           >
             <h3
               className={`text-lg font-orbital mb-4 ${
@@ -70,13 +70,13 @@ export default function TechStack() {
 
             <ul className="space-y-2">
               {category.technologies.map((tech, techIndex) => (
+                // @ts-ignore - React 19 compatibility
                 <motion.li
                   key={tech}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: categoryIndex * 0.1 + techIndex * 0.05 }}
                   className="flex items-center text-sm font-tech"
-                  // @ts-ignore - React 19 compatibility
                 >
                   <span className={`mr-2 ${
                     category.color === "terracotta" && "text-terracotta"

@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} min-h-screen bg-black text-white`}>
+      <body className={`${inter.className} min-h-screen`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

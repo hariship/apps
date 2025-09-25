@@ -43,13 +43,13 @@ export default function Updates() {
 
       <div className="space-y-6">
         {updates.map((update, index) => (
+          // @ts-ignore - React 19 compatibility
           <motion.div
             key={update.date}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
             className="lcars-card p-6"
-            // @ts-ignore - React 19 compatibility
           >
             <div className="flex items-center mb-4">
               <span className="text-lg font-orbital text-terracotta">
