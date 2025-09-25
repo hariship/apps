@@ -1,0 +1,11 @@
+# Cloudflare Pages redirects and headers
+
+# SPA routing fallback
+/*    /index.html   200
+
+# Security headers
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-XSS-Protection: 1; mode=block
