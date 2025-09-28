@@ -63,7 +63,7 @@ export default function AdminLogin() {
               required
               className="w-full px-4 py-3 bg-gray-800 border border-amber-600/50 text-gray-200 focus:outline-none focus:border-amber-600 transition-colors"
               style={{fontFamily: 'Share Tech Mono, monospace'}}
-              placeholder="admin@haripriya.org"
+              placeholder="admin username"
             />
           </div>
 
@@ -78,7 +78,7 @@ export default function AdminLogin() {
               required
               className="w-full px-4 py-3 bg-gray-800 border border-amber-600/50 text-gray-200 focus:outline-none focus:border-amber-600 transition-colors"
               style={{fontFamily: 'Share Tech Mono, monospace'}}
-              placeholder="••••••••"
+              placeholder="admin password"
             />
           </div>
 
