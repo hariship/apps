@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:cf": "CLOUDFLARE_PAGES=true next build",
+    "build:cf": "next build && rm -rf .next/cache",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit"

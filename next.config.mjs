@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable static exports for Cloudflare Pages
-  output: process.env.CLOUDFLARE_PAGES ? 'export' : undefined,
+  // Cloudflare Pages Functions requires server-side rendering
+  // Remove 'export' output for Cloudflare to support API routes
 
   // Image optimization settings
   images: {
-    unoptimized: process.env.CLOUDFLARE_PAGES ? true : false,
+    // Cloudflare doesn't support Next.js image optimization
+    unoptimized: true,
     domains: ['github.com', 'raw.githubusercontent.com'],
   },
 
