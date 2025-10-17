@@ -10,6 +10,28 @@ export const metadata: Metadata = {
   title: "Apps Dashboard - Portfolio Projects",
   description: "Portfolio dashboard showcasing development projects with architecture diagrams and technology stacks",
   keywords: ["portfolio", "projects", "developer", "dashboard", "next.js", "react"],
+  openGraph: {
+    title: "Apps Dashboard - Portfolio Projects",
+    description: "Portfolio dashboard showcasing development projects with architecture diagrams and technology stacks",
+    url: "https://apps.haripriya.org",
+    siteName: "Haripriya Apps Dashboard",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Apps Dashboard Preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Apps Dashboard - Portfolio Projects",
+    description: "Portfolio dashboard showcasing development projects with architecture diagrams and technology stacks",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
