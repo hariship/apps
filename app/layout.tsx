@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: "Haripriya Apps Dashboard",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://apps.haripriya.org/og-image.png",
         width: 1200,
         height: 630,
         alt: "Apps Dashboard Preview",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Apps Dashboard - Portfolio Projects",
     description: "Portfolio dashboard showcasing development projects with architecture diagrams and technology stacks",
-    images: ["/og-image.png"],
+    images: ["https://apps.haripriya.org/og-image.png"],
   },
 };
 
